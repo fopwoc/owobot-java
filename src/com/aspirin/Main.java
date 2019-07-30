@@ -1,5 +1,23 @@
+/*                       _           _
+                        | |         | |
+       _____      _____ | |__   ___ | |_
+      / _ \ \ /\ / / _ \| '_ \ / _ \| __|
+     | (_) \ V  V / (_) | |_) | (_) | |_
+      \___/ \_/\_/ \___/|_.__/ \___/ \__|
+                                            v.1.1
+
+    An anime pics bot for Telegram, written on java, taking data from reddit.
+    Бот для телеграмма, присылающий аниме девочек, написанный на java, берущий данные из reddit.
+
+    Ссылка на бота:  https://t.me/owopics_bot
+    Или его юзернейм: @owopics_bot
+    Автор: @realASPIRIN                                                                                */
+
 package com.aspirin;
 
+import net.dean.jraw.models.SubredditSort;
+import net.dean.jraw.models.TimePeriod;
+import net.dean.jraw.pagination.Paginator;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
@@ -13,8 +31,11 @@ public class Main {
 
     final static long StartTime = System.currentTimeMillis();
 
-    final static int PagesLimit = 25;
-    final static boolean EnableHttpLog = false;         //true - показывать всю активность с реддитом, false - ничего не показывать
+    final private static int PagesLimit = 25;                           //Лимит страниц. Хз нах это надо, не делайте много, будет долго листать.
+    final private static SubredditSort sort = SubredditSort.HOT;        //Тип сортировки постов на реддите.
+    final private static TimePeriod period = TimePeriod.WEEK;           //За какой период будет происхоть сортировка.
+    final private static Integer postlimit = Paginator.DEFAULT_LIMIT;   //Максимум постов который будет браться с страници.
+    final private static boolean EnableHttpLog = false;                 //true - показывать всю активность с реддитом, false - ничего не показывать
 
     static Properties prop = new Properties();
 
@@ -52,7 +73,7 @@ public class Main {
         }
 
         System.setErr(new PrintStream(new File("log.txt"))); //лог ошибок, не ваших данных.
-        new RedditAPI();
+        new RedditAPI(PagesLimit, sort, period, postlimit, EnableHttpLog);
         System.err.println("Logfile start: " + (new Date()).toString());
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
