@@ -142,7 +142,7 @@ public class Bot extends TelegramLongPollingBot {
                             } else if (message_text[0].contains("/feedback")) {
                                 String Subedmessage = message_text[0].substring(9);
                                 if (Subedmessage.length() == 0) {
-                                    sendText(m, "Для того, что-бы написать создателю бота, использутей форму \"/feedback привет, тут текст!\"");
+                                    sendText(m, "Для того, что-бы написать создателю бота, использутей форму \"/feedback привет, тут текст!\"\n\nЕсли вы в групповм чате, не забудьте в конце написать \n\"@" + Main.prop.getProperty("BOT_USERNAME") + "\"");
                                 } else {
                                     sendTextFeedback(m, "Сообщение от " + m.getFrom().getUserName() + ":" + Subedmessage);
                                 }
