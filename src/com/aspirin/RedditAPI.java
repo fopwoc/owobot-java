@@ -23,10 +23,10 @@ class RedditAPI {
     private static Integer postlimit;
     private static boolean EnableHttpLog;
     private RedditClient RedditAPI;
+    final private UserAgent userAgent = new UserAgent("bot", "com.aspirinswag.bot", "v1.1.1", "ASPIRINswag");
+    final private Credentials credentials = Credentials.script(Main.prop.getProperty("Reddit_Username"), Main.prop.getProperty("Reddit_Password"), Main.prop.getProperty("Reddit_Clientid"), Main.prop.getProperty("Reddit_Clientsecret"));
 
     RedditAPI() {
-        UserAgent userAgent = new UserAgent("bot", "com.aspirinswag.bot", "v1.1", "ASPIRINswag");
-        Credentials credentials = Credentials.script(Main.prop.getProperty("Reddit_Username"), Main.prop.getProperty("Reddit_Password"), Main.prop.getProperty("Reddit_Clientid"), Main.prop.getProperty("Reddit_Clientsecret"));
         OkHttpNetworkAdapter okHttpNetworkAdapter = new OkHttpNetworkAdapter(userAgent);
         this.RedditAPI = OAuthHelper.automatic(okHttpNetworkAdapter, credentials);
         RedditAPI.setLogHttp(EnableHttpLog);
@@ -40,8 +40,6 @@ class RedditAPI {
         com.aspirin.RedditAPI.postlimit = postlimit;
         com.aspirin.RedditAPI.EnableHttpLog = EnableHttpLog;
 
-        UserAgent userAgent = new UserAgent("bot", "com.aspirinswag.bot", "v1.1", "ASPIRINswag");
-        Credentials credentials = Credentials.script(Main.prop.getProperty("Reddit_Username"), Main.prop.getProperty("Reddit_Password"), Main.prop.getProperty("Reddit_Clientid"), Main.prop.getProperty("Reddit_Clientsecret"));
         OkHttpNetworkAdapter okHttpNetworkAdapter = new OkHttpNetworkAdapter(userAgent);
         this.RedditAPI = OAuthHelper.automatic(okHttpNetworkAdapter, credentials);
         RedditAPI.setLogHttp(EnableHttpLog);
