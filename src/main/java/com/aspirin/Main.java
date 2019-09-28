@@ -40,7 +40,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        try (InputStream input = new FileInputStream("config.properties")) {
+        try (InputStream input = new FileInputStream("owobot-java-config.properties")) {
             System.out.println("Reading config file");
             prop.load(input);
         } catch (IOException ex) {
