@@ -34,17 +34,22 @@ class RedditAPI {
 
     RedditAPI(int limit, SubredditSort sort, TimePeriod period, Integer postlimit, boolean EnableHttpLog) {
         System.out.println("Initializing Reddit API");
-        com.aspirin.RedditAPI.limit = limit;
-        com.aspirin.RedditAPI.sort = sort;
-        com.aspirin.RedditAPI.period = period;
-        com.aspirin.RedditAPI.postlimit = postlimit;
-        com.aspirin.RedditAPI.EnableHttpLog = EnableHttpLog;
+        try {
+            com.aspirin.RedditAPI.limit = limit;
+            com.aspirin.RedditAPI.sort = sort;
+            com.aspirin.RedditAPI.period = period;
+            com.aspirin.RedditAPI.postlimit = postlimit;
+            com.aspirin.RedditAPI.EnableHttpLog = EnableHttpLog;
 
-        OkHttpNetworkAdapter okHttpNetworkAdapter = new OkHttpNetworkAdapter(userAgent);
-        this.RedditAPI = OAuthHelper.automatic(okHttpNetworkAdapter, credentials);
-        RedditAPI.setLogHttp(EnableHttpLog);
-
-        System.out.println("Reddit API has been succesfully initialized");
+            OkHttpNetworkAdapter okHttpNetworkAdapter = new OkHttpNetworkAdapter(userAgent);
+            this.RedditAPI = OAuthHelper.automatic(okHttpNetworkAdapter, credentials);
+            RedditAPI.setLogHttp(EnableHttpLog);
+        } catch (Exception e) {
+            System.out.println("Error while Reddit API initialization");
+            e.printStackTrace();
+        } finally {
+            System.out.println("Reddit API has been succesfully initialized");
+        }
     }
 
     String getPicFromSub(RedditAPI API, String subreddit, Message message) {
