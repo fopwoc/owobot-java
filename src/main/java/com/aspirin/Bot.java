@@ -100,7 +100,7 @@ public class Bot extends TelegramLongPollingBot {
                             long uptime = System.currentTimeMillis() - Main.StartTime;
                             DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
                             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-                            sendText(m, "Я жива! Uptime: " + (int) Math.floor(uptime / 1000 / 60 / 60 / 24) + " дней " + formatter.format(new Date(uptime)) + ". Всего запросов: " + Main.readPreference("UsedTimes"));
+                            sendText(m, "Я жива! Uptime: " + (int) Math.floor(uptime / 1000 / 60 / 60 / 24) + " дней " + formatter.format(new Date(uptime)) + ". Всего запросов: " + Main.readPreference("UsedTimes" )+ "\nВерсия бота: 1.2");
                             break;
                         case "/get":
                             sendText(m, "Напишите боту /get_*название сабреддита* и он отправит вам случайную картинку оттуда.\n" +
@@ -140,13 +140,35 @@ public class Bot extends TelegramLongPollingBot {
                                 sendText(m, API.getPicFromSub(API, message_text[0].substring(5), m));
                                 break;
                             } else if (message_text[0].contains("/feedback")) {
-                                String Subedmessage = message_text[0].substring(9);
-                                if (Subedmessage.length() == 0) {
+                                String SubedMessage = message_text[0].substring(9);
+                                if (SubedMessage.length() == 0) {
                                     sendText(m, "Для того, что-бы написать создателю бота, использутей форму \"/feedback привет, тут текст!\"\n\nЕсли вы в групповм чате, не забудьте в конце написать \n\"@" + Main.prop.getProperty("BOT_USERNAME") + "\"");
                                 } else {
-                                    sendTextFeedback(m, "Сообщение от " + m.getFrom().getUserName() + ":" + Subedmessage);
+                                    sendTextFeedback(m, "Сообщение от " + m.getFrom().getUserName() + ":" + SubedMessage);
                                 }
                                 break;
+                            } else if (message_text[0].contains("/debug")) {
+
+                                if (m.getFrom().getId() == Integer.parseInt(Main.prop.getProperty("BOT_FEEDBACKID"))){
+                                    if (message_text[0].contains("_")) {
+
+                                        if ((message_text[0].replace("/debug_", "")).contains("addrequest")){
+                                            sendText(m, "addrequest");
+                                            Main.savePreference("UsedTimes", Main.readPreference("UsedTimes") + Integer.parseInt(message_text[0].replace("/debug_addrequest ", "")));
+                                            break;
+                                        } else if ((message_text[0].replace("/debug_", "")).contains("setrequest")){
+                                            sendText(m, "setrequest");
+                                            Main.savePreference("UsedTimes", Integer.parseInt(message_text[0].replace("/debug_setrequest ", "")));
+                                            break;
+                                        } else sendText(m, "uhh... what?");
+
+                                    } else sendText(m, "Привет админ! Я тебя слушаю...");
+                                    break;
+                                } else {
+                                    sendText(m, "А вам сюда нельзя!");
+                                    break;
+                                }
+
                             } else {
                                 sendText(m, "Eaah? Я не поняла вас!");
                                 break;
@@ -196,7 +218,7 @@ public class Bot extends TelegramLongPollingBot {
         return Main.prop.getProperty("BOT_TOKEN");
     }
 
-    private void sendTextFeedback(@NotNull Message message, String text) {
+    private void sendTextFeedback(@NotNull Message message, @NotNull String text) {
         try {
             execute(new SendMessage().setChatId(Main.prop.getProperty("BOT_FEEDBACKID")).setText(text).setParseMode("HTML"));
             execute(new SendMessage().setChatId(message.getChatId().toString()).setText("Готово! Я отправила ваше сообщение своему создателю! Спасибо вам (\\\\\\ω\\\\\\)").setParseMode("HTML"));
@@ -205,7 +227,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void sendText(Message message, @NotNull String text) {
+    private void sendText(@NotNull Message message, @NotNull String text) {
         try {
             if (text.length() == 0) {
                 execute(new SendMessage().setChatId(message.getChatId().toString()).setText("Ой! Супер странная ошибка все поломалось, просите (ᗒᗣᗕ)").setParseMode("HTML"));
