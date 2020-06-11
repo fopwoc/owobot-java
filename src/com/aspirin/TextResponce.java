@@ -231,6 +231,14 @@ public class TextResponce {
         };
     }
 
+    String nsfwNotAdminResponse(Message message) {
+        return switch (preferences.settingsLanguageGet(message.getFrom().getUserName())) {
+            case 0 -> ("@" + message.getFrom().getUserName() + ", you must be admin in this group chat to have be able to change NSFW settings!");
+            case 1 -> ("@" + message.getFrom().getUserName() + ", вы должны быть админом, чтобы иметь возможность менять настройки NSFW в этом чате!");
+            default -> null;
+        };
+    }
+
     String languageResponse(Message message) {
         if (message.getFrom().getUserName() == null) //specific response if username is null
             return ("Dear " + message.getFrom().getFirstName() + ", looks like your nickname is hidden or something, so here is no option for change language, im so sorry :(\n\n" +
