@@ -1,5 +1,5 @@
 FROM alpine:3.7
-FROM maven:3.6-jdk-11-slim as target
+FROM maven:3.6.3-jdk-14 as target
 RUN mkdir -p ./
 COPY pom.xml pom.xml
 WORKDIR ./
