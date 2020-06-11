@@ -20,7 +20,7 @@ Bot link:  [@owopics_bot](https://t.me/owopics_bot)
 Or if for some reason you want to run it by yourself:
 
 1. Clone code somewhere
-2. Run `mvn package` or use docker to build and run bot
+2. Install Java 14 and run `mvn package` or use Docker
 3. After first run it will create empty config file
 4. Fill the config
 5. Run again and enjoy
