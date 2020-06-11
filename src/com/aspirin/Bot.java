@@ -1,9 +1,13 @@
 package com.aspirin;
 
 import org.jetbrains.annotations.NotNull;
+import org.telegram.abilitybots.api.sender.DefaultSender;
+import org.telegram.abilitybots.api.sender.MessageSender;
+import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ActionType;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatAdministrators;
 import org.telegram.telegrambots.meta.api.methods.send.SendChatAction;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -140,6 +144,15 @@ public class Bot extends TelegramLongPollingBot {
         return ("[" + simpleDateFormat.format(new Date()) + DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalTime.now()) + "] ");
     }
 
+    public boolean isAdmin(Update update) {
+        GetChatAdministrators getChatAdministrators = new GetChatAdministrators().setChatId(update.getMessage().getChatId());
+        MessageSender sender;
+        sender = new DefaultSender(this);
+        SilentSender silent = new SilentSender(sender);
+        return silent.execute(getChatAdministrators).orElse(new ArrayList<>()).stream()
+                .anyMatch(member -> member.getUser().getId().equals(update.getMessage().getFrom().getId()));
+    }
+
     private void sendTextFeedback(@NotNull String text) {
         try {
             execute(new SendMessage().setChatId(creatorId()).setText(text));
@@ -221,20 +234,24 @@ public class Bot extends TelegramLongPollingBot {
                             return (new RedditAPI().getPicFromSub(new RedditAPI(), message_text.substring(5), update));
                         }
                     } else if (message_text.contains("/feedback")) {
-                        String SubedMessage = message_text.substring(9);
-                        if (SubedMessage.length() == 0) {
+                        String subbedMessage = message_text.substring(9);
+                        if (subbedMessage.length() == 0) {
                             return textResponce.feedbackResponse(update.getMessage());
                         } else {
-                            sendTextFeedback("Message from " + update.getMessage().getFrom().getUserName() + ":" + SubedMessage);
+                            sendTextFeedback("Message from " + update.getMessage().getFrom().getUserName() + ":" + subbedMessage);
                             return textResponce.feedbackDoneResponse(update.getMessage());
                         }
                     } else if (message_text.contains("/nsfw_")) {
-                        String SubedMessage = message_text.substring(6);
-                        if (SubedMessage.equals("on")) {
+                        //not allowing not admins change NSFW in group chats
+                        if (update.getMessage().isGroupMessage() || update.getMessage().isSuperGroupMessage())
+                            if (!isAdmin(update)) return textResponce.nsfwNotAdminResponse(update.getMessage());
+
+                        String subbedMessage = message_text.substring(6);
+                        if (subbedMessage.equals("on")) {
                             System.out.println(timeAndDate() + "NSFW changed to ON by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsNSFWSet(update.getMessage().getChatId(), 1);
                             return textResponce.nsfwOnResponse(update.getMessage());
-                        } else if (SubedMessage.equals("off")) {
+                        } else if (subbedMessage.equals("off")) {
                             System.out.println(timeAndDate() + "NSFW changed to OFF by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsNSFWSet(update.getMessage().getChatId(), 0);
                             return textResponce.nsfwOffResponse(update.getMessage());
@@ -242,12 +259,12 @@ public class Bot extends TelegramLongPollingBot {
                             return textResponce.nsfwWrongResponse(update.getMessage());
                         }
                     } else if (message_text.contains("/language_")) {
-                        String SubedMessage = message_text.substring(10);
-                        if (SubedMessage.equals("rus")) {
+                        String subbedMessage = message_text.substring(10);
+                        if (subbedMessage.equals("rus")) {
                             System.out.println(timeAndDate() + "language changed to RUS by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsLanguageSet(update.getMessage().getFrom().getUserName(), 1);
                             return textResponce.languageOnResponse(update.getMessage());
-                        } else if (SubedMessage.equals("eng")) {
+                        } else if (subbedMessage.equals("eng")) {
                             System.out.println(timeAndDate() + "language changed to ENG by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsLanguageSet(update.getMessage().getFrom().getUserName(), 0);
                             return textResponce.languageOffResponse(update.getMessage());
