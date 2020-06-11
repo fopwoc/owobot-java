@@ -134,9 +134,9 @@ public class TextResponce {
 
         String nsfwStatus;
         if (preferences.settingsNSFWGet(message.getChatId()) == 1)
-            if (language == 0) nsfwStatus = ("On");
+            if (language == 0) nsfwStatus = ("ON");
             else nsfwStatus = ("включен");
-        else if (language == 0) nsfwStatus = ("Off");
+        else if (language == 0) nsfwStatus = ("OFF");
         else nsfwStatus = ("выключен");
 
         String userMention;
@@ -164,9 +164,9 @@ public class TextResponce {
 
         String nsfwStatus;
         if (preferences.settingsNSFWGet(message.getChatId()) == 1)
-            if (language == 0) nsfwStatus = ("On");
+            if (language == 0) nsfwStatus = ("ON");
             else nsfwStatus = ("включен");
-        else if (language == 0) nsfwStatus = ("Off");
+        else if (language == 0) nsfwStatus = ("OFF");
         else nsfwStatus = ("выключен");
 
         String userMention;
@@ -225,7 +225,7 @@ public class TextResponce {
             userMention = ("@" + message.getFrom().getUserName());
 
         return switch (language) {
-            case 0 -> ("Эм... " + userMention + " should read carefully about the commands in / nsfw");
+            case 0 -> ("Ehmm... " + userMention + " should read carefully about the commands in /nsfw");
             case 1 -> ("Эм... " + userMention + " стоит внимательнее прочитать о командах в /nsfw");
             default -> null;
         };
