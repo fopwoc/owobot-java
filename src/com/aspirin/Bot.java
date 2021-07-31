@@ -58,40 +58,6 @@ public class Bot extends TelegramLongPollingBot {
         add("Smugs");
     }};
 
-    //woo! Undocumented feature! You should check "getMessageText" func carefully *wink*
-    final private ArrayList<String> RandomHentai = new ArrayList<>() {{
-        add("ecchi");
-        add("hentai");
-        add("Tentai");
-        add("MonsterGirl");
-        add("HENTAI_GIF");
-        add("animemidriff");
-        add("AnimeBooty");
-        add("hentaifemdom");
-        add("dekaihentai");
-        add("rule34");
-        add("thick_hentai");
-        add("hentaibondage");
-        add("HumanCumflation");
-        add("BigAnimeTiddies");
-        add("HentaiPetgirls");
-        add("LoweredPantyhose");
-        add("skindentation");
-        add("doujinshi");
-        add("CumHentai");
-        add("waifusgonewild");
-        add("UpskirtHentai");
-        add("CedehsHentai");
-        add("Artistic_Hentai");
-        add("HentaiSchoolGirls");
-        add("HentaiAnal");
-        add("yuri");
-        add("muchihentai");
-        add("AnimeMILFS");
-        add("Nekomimi");
-        add("KuroiHada");
-    }};
-
     final private SendChatAction sendChatAction = new SendChatAction().setAction(ActionType.TYPING);
     final private TextResponce textResponce = new TextResponce();
     final private Preferences preferences = new Preferences();
@@ -222,11 +188,8 @@ public class Bot extends TelegramLongPollingBot {
                 case "/random":
                     message_text = RandomAnimeGirls.get(random.nextInt(RandomAnimeGirls.size()));
                     return (new RedditAPI().getPicFromSub(new RedditAPI(), message_text, update));
-                case "/hentai":
-                    //Hello you, who was looking at this code just for finding this feature! Good luck owo
-                    message_text = RandomHentai.get(random.nextInt(RandomHentai.size()));
-                    return (new RedditAPI().getPicFromSub(new RedditAPI(), message_text, update));
                 default:
+
                     if (message_text.contains("/get_")) {
                         if (message_text.substring(5).equals("")) {
                             return textResponce.getWrongResponse(update.getMessage());
