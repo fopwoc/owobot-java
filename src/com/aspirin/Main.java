@@ -4,7 +4,7 @@
       / _ \ \ /\ / / _ \| '_ \ / _ \| __|
      | (_) \ V  V / (_) | |_) | (_) | |_
       \___/ \_/\_/ \___/|_.__/ \___/ \__|
-                                            v.2.0
+                                            v.2.1
 
     An anime pics bot for Telegram, written on java, taking data from reddit.
     Бот для телеграмма, присылающий аниме девочек, написанный на java, берущий данные из reddit.
@@ -29,11 +29,14 @@ import java.util.Properties;
 public class Main {
 
     final static long StartTime = System.currentTimeMillis();
+    final static String version = "v2.1";
     static final Properties prop = new Properties();
 
     static int messagesGroupPerMin;
 
     public static void main(String[] args) {
+        System.out.println("owobot! v" + version + "is starting!");
+
         try (InputStream input = new FileInputStream("owobot-java-config.properties")) {
             System.out.println("Reading config file");
             prop.load(input);
