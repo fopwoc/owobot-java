@@ -11,7 +11,7 @@ public class Preferences {
         return java.util.prefs.Preferences.userNodeForPackage(Main.class).get(key, "0");
     }
 
-    int settingsNSFWGet(Long chatID) {                                                                   //Second one is NSFW settings
+    int settingsNSFWGet(Long chatID) {                                                                  //Second one is NSFW settings
         return Integer.parseInt(preferenceGet(String.valueOf(chatID)));                                 //The NSFW setting depends on chat where it was requested
     }                                                                                                   //1 is ON, 0 is off
 
@@ -20,9 +20,9 @@ public class Preferences {
     }
 
     //users without username considers as "null", so english only :(
-    int settingsLanguageGet(String username) {                                                           //And last third is language settings
+    int settingsLanguageGet(String username) {                                                          //And last third is language settings
         if (username == null)
-            return 0;                                                                 //it uses telegram username to know what language to use
+            return 0;                                                                                   //it uses telegram username to know what language to use
         return Integer.parseInt(preferenceGet(username));                                               //0 is english, 1 is whatever language you used in TextResponse class
     }
 
