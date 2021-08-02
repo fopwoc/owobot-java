@@ -9,7 +9,6 @@ import net.dean.jraw.models.TimePeriod;
 import net.dean.jraw.oauth.Credentials;
 import net.dean.jraw.oauth.OAuthHelper;
 import net.dean.jraw.pagination.DefaultPaginator;
-import net.dean.jraw.pagination.Paginator;
 import net.dean.jraw.references.SubredditReference;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -18,12 +17,11 @@ import java.util.Random;
 
 class RedditAPI {
 
-    final private int pagesLimit = Paginator.DEFAULT_LIMIT;     //Лимит страниц. Хз нах это надо, не делайте много, будет долго листать.
-    final private SubredditSort sort = SubredditSort.HOT;       //Тип сортировки постов на реддите.
-    final private TimePeriod period = TimePeriod.WEEK;          //За какой период будет происхоть сортировка.
-    final private int postLimit = 6;                            //Максимум постов который будет браться с страници.
-    final private int retryMax = 3;                             //Максимальное число попыток перерандомить пост
-    final private boolean enableHttpLog = false;                //true - показывать всю активность с реддитом, false - ничего не показывать
+    final private int pageLimit = Integer.parseInt(Main.prop.getProperty("pageLimit"));
+    final private SubredditSort sort = IdentifySubredditSort();
+    final private TimePeriod period = IdentifyTimePeriod();
+    final private int postLimit = Integer.parseInt(Main.prop.getProperty("postLimit"));
+    final private int retryMax = Integer.parseInt(Main.prop.getProperty("retryMax"));
 
     private final RedditClient RedditAPI;
     final private TextResponce textResponce = new TextResponce();
@@ -31,11 +29,35 @@ class RedditAPI {
     final private Random random = new Random();
 
     RedditAPI() {
+
         UserAgent userAgent = new UserAgent("bot", "com.aspirinswag.bot", "v1.1.1", "ASPIRINswag");
-        OkHttpNetworkAdapter okHttpNetworkAdapter = new OkHttpNetworkAdapter(userAgent);
-        Credentials credentials = Credentials.script(Main.prop.getProperty("Reddit_Username"), Main.prop.getProperty("Reddit_Password"), Main.prop.getProperty("Reddit_Clientid"), Main.prop.getProperty("Reddit_Clientsecret"));
-        this.RedditAPI = OAuthHelper.automatic(okHttpNetworkAdapter, credentials);
-        RedditAPI.setLogHttp(enableHttpLog);
+        Credentials oauthCreds = Credentials.script(Main.prop.getProperty("Reddit_Username"), Main.prop.getProperty("Reddit_Password"), Main.prop.getProperty("Reddit_Clientid"), Main.prop.getProperty("Reddit_Clientsecret"));
+        this.RedditAPI = OAuthHelper.automatic(new OkHttpNetworkAdapter(userAgent), oauthCreds);
+        RedditAPI.setLogHttp(Boolean.parseBoolean(Main.prop.getProperty("HttpLog")));
+    }
+
+    SubredditSort IdentifySubredditSort() {
+        return switch (Main.prop.getProperty("sort")) {
+            case "HOT" -> SubredditSort.HOT;
+            case "BEST" -> SubredditSort.BEST;
+            case "CONTROVERSIAL" -> SubredditSort.CONTROVERSIAL;
+            case "NEW" -> SubredditSort.NEW;
+            case "TOP" -> SubredditSort.TOP;
+            case "RISING" -> SubredditSort.RISING;
+            default -> throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("sort"));
+        };
+    }
+
+    TimePeriod IdentifyTimePeriod() {
+        return switch (Main.prop.getProperty("period")) {
+            case "ALL" -> TimePeriod.ALL;
+            case "YEAR" -> TimePeriod.YEAR;
+            case "MONTH" -> TimePeriod.MONTH;
+            case "WEEK" -> TimePeriod.WEEK;
+            case "DAY" -> TimePeriod.DAY;
+            case "HOUR" -> TimePeriod.HOUR;
+            default -> throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("period"));
+        };
     }
 
     public String getPicFromSub(RedditAPI api, String subreddit, Update update) {
@@ -47,7 +69,7 @@ class RedditAPI {
         DefaultPaginator<Submission> build = sub.posts().sorting(sort).timePeriod(period).build();
         build.accumulate(random.nextInt(postLimit) + 1);
 
-        int postIndex = (random.nextInt(pagesLimit - retryMax));
+        int postIndex = (random.nextInt(pageLimit - retryMax));
 
         Submission post;
 
