@@ -41,20 +41,20 @@ public class TextResponce {
             userMention = (" @" + message.getFrom().getUserName());
 
         return switch (preferences.settingsLanguageGet(message.getFrom().getUserName())) {
-            case 0 -> ("Hellowo" + userMention + "! I'm owobot v2.0 - a bot that sends cute girls!\n\n" +
+            case 0 -> ("Hellowo" + userMention + "! I'm owobot v" + Main.version + " - a bot that sends cute girls!\n\n" +
                     "I am written in Java, taking data from reddit, multi-threaded and fully compatible with group chats. Do not be afraid to send me 25-50 requests at a time, I can handle it!\n\n" +
                     "If you’re tired of reading and you want to see anime girls already, then you are here: /get\n" +
                     "By default, I will not send you NSFW content, however you can configure this here: /nsfw\n" +
                     "You can also change the language here: /language\n\n" +
-                    "A few words about privacy - I save the settings for each user and chat, as well as the total number of requests, but I do not keep statistics on who watches what and how much.\n\n" +
+                    "A few words about privacy - I save the settings for each user and chat, as well as the total number of requests.\n\n" +
                     "My github page: https://github.com/ASPIRINswag/owobot-java\n\n" +
                     "I hope that I will be useful to you, master!! (☆ω☆)");
-            case 1 -> ("Приветик" + userMention + "! Я owobot v2.0 - бот, который прислылает милых девочек!\n\n" +
+            case 1 -> ("Приветик" + userMention + "! Я owobot v" + Main.version + " - бот, который прислылает милых девочек!\n\n" +
                     "Я написана на Java, беру картинки с reddit, мультипоточна и полностью соовместима с групповыми чатами. Не бойтесь отправлять мне по 25-50 запросов за раз, я справлюсь с этим!\n\n" +
                     "Если надоело читать и хочется уже видеть аниме девочек, то вам сюда: /get\n" +
                     "По умолчанию я не буду присылать вам NSFW контент, однако Вы можете настроить это тут: /nsfw\n" +
                     "Также вы можете поменять язык здесь: /language\n\n" +
-                    "Пару слов по поводу приватности - Я сохраняю настройки для каждого пользователя и чата, а также общее число запросов, но не веду статистику того, кто и сколько чего смотрит.\n\n" +
+                    "Пару слов по поводу приватности - Я сохраняю настройки для каждого пользователя и чата, а также общее число запросов.\n\n" +
                     "Моя страничка на GitHub: https://github.com/ASPIRINswag/owobot-java\n\n" +
                     "Я надеюсь, что буду полезной вам! (☆ω☆)");
             default -> null;
@@ -150,11 +150,11 @@ public class TextResponce {
             case 0 -> (userMention + "Uptime: " + (uptime / 1000 / 60 / 60 / 24) + " days " + dateFormat.format(new Date(uptime)) + ". " +
                     "Total requests: " + preferences.reqTimesGet() + "\n" +
                     "NSFW for this chat: " + nsfwStatus + "\n" +
-                    "Bot version: v2.0");
+                    "Bot version: v" + Main.version);
             case 1 -> (userMention + "Uptime: " + (uptime / 1000 / 60 / 60 / 24) + " дней " + dateFormat.format(new Date(uptime)) + ". " +
                     "Всего запросов: " + preferences.reqTimesGet() + "\n" +
                     "NSFW для этого чата: " + nsfwStatus + "\n" +
-                    "Версия бота: v2.0");
+                    "Версия бота: v" + Main.version);
             default -> null;
         };
     }
