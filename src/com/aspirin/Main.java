@@ -68,9 +68,9 @@ public class Main {
                 prop.store(output, "owobot-java, an anime bot for telegram. Github: https://github.com/ASPIRINswag/owobot-java");
 
                 PrintWriter configFile = new PrintWriter(new BufferedWriter(new FileWriter("owobot-java-config.properties", true)));
-                configFile.println("BOT_USERNAME=name_bot\n" +
+                configFile.println("BOT_USERNAME=username_bot\n" +
                         "BOT_TOKEN=token\n" +
-                        "BOT_FEEDBACKID=id\n" +
+                        "BOT_FEEDBACKID=your id\n" +
                         "\n" +
                         "Reddit_Username=username\n" +
                         "Reddit_Password=password\n" +
@@ -112,7 +112,7 @@ public class Main {
         System.out.println("Trying Reddit API");
         try {
             new RedditAPI();
-        } catch (RedditException e) {
+        } catch (RedditException | NullPointerException e) {
             e.printStackTrace();
             System.exit(1);
         } finally {
@@ -123,14 +123,15 @@ public class Main {
         TelegramBotsApi botsApi = new TelegramBotsApi();
         DefaultBotOptions botOptions = ApiContext.getInstance(DefaultBotOptions.class);
 
-        String PROXY_HOST = "localhost";
-        int PROXY_PORT = 9030;
+        if (Main.prop.getProperty("PROXY_HOST") != null) {
+            System.out.println("Forwarding telegram through proxy");
 
-        HttpHost httpHost = new HttpHost(PROXY_HOST, PROXY_PORT);
+            HttpHost httpHost = new HttpHost(prop.getProperty("PROXY_HOST"), Integer.parseInt(prop.getProperty("PROXY_PORT")));
 
-        RequestConfig requestConfig = RequestConfig.custom().setProxy(httpHost).setAuthenticationEnabled(false).build();
-        botOptions.setRequestConfig(requestConfig);
-        botOptions.setProxyHost(String.valueOf(httpHost));
+            RequestConfig requestConfig = RequestConfig.custom().setProxy(httpHost).setAuthenticationEnabled(false).build();
+            botOptions.setRequestConfig(requestConfig);
+            botOptions.setProxyHost(String.valueOf(httpHost));
+        }
 
         System.out.println("Starting bot");
         Bot bot = new Bot(botOptions);
