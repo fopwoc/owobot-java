@@ -37,6 +37,31 @@ public class Main {
         try (InputStream input = new FileInputStream("owobot-java-config.properties")) {
             System.out.println("Reading config file");
             prop.load(input);
+
+            //not the greatest solution, but i can't find any good practices for this case
+            if (prop.getProperty("BOT_USERNAME") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("BOT_USERNAME"));
+            if (prop.getProperty("BOT_FEEDBACKID") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("BOT_FEEDBACKID"));
+            if (prop.getProperty("Reddit_Username") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("Reddit_Username"));
+            if (prop.getProperty("Reddit_Password") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("Reddit_Password"));
+            if (prop.getProperty("Reddit_Clientid") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("Reddit_Clientid"));
+            if (prop.getProperty("postLimit") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("postLimit"));
+            if (prop.getProperty("pageLimit") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("pageLimit"));
+            if (prop.getProperty("sort") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("sort"));
+            if (prop.getProperty("period") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("period"));
+            if (prop.getProperty("retryMax") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("retryMax"));
+            if (prop.getProperty("HttpLog") == null)
+                throw new IllegalStateException("Unexpected value: " + Main.prop.getProperty("HttpLog"));
+
         } catch (IOException ex) {
             try (OutputStream output = new FileOutputStream("owobot-java-config.properties")) {
                 System.out.println("Creating config file");
