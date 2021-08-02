@@ -29,7 +29,7 @@ import java.util.Properties;
 public class Main {
 
     final static long StartTime = System.currentTimeMillis();
-    final static String version = "v2.1";
+    final static String version = "2.1";
     static final Properties prop = new Properties();
 
     static int messagesGroupPerMin;
