@@ -159,7 +159,7 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(timeAndDate() + "Message \"" + message_text.replace("@" + Main.prop.getProperty("BOT_USERNAME"), "") + "\" has been received from user " + update.getMessage().getFrom().getUserName() + " in group chat");
             }
         } else {
-            System.out.println(timeAndDate() + "Message \"" + message_text + "\" has been received from user " + update.getMessage().getFrom().getUserName());
+            System.out.println(timeAndDate() + "Message \"" + message_text + "\" has been received");
         }
 
         if (message_text.contains("@" + Main.prop.getProperty("BOT_USERNAME"))) {
@@ -168,7 +168,7 @@ public class Bot extends TelegramLongPollingBot {
 
         //shitcode, but it works somehow
         try {
-            switch (message_text) {
+            switch (message_text.toLowerCase()) {
                 case "owo":
                     return ("uwu");
                 case "uwu":
@@ -189,7 +189,6 @@ public class Bot extends TelegramLongPollingBot {
                     message_text = RandomAnimeGirls.get(random.nextInt(RandomAnimeGirls.size()));
                     return (new RedditAPI().getPicFromSub(new RedditAPI(), message_text, update));
                 default:
-
                     if (message_text.contains("/get_")) {
                         if (message_text.substring(5).equals("")) {
                             return textResponce.getWrongResponse(update.getMessage());
@@ -247,7 +246,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    //bullshit "debug" functions. Actually, it only can edit "reqTimes" variable
+    //"debug" functions. Actually, it only can edit "reqTimes" variable
     private String debug(Message message, String message_text) {
         if (message.getFrom().getId() == Integer.parseInt(creatorId())) {
             if (message_text.contains("_")) {
