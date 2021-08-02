@@ -47,7 +47,7 @@ public class TextResponce {
                     "By default, I will not send you NSFW content, however you can configure this here: /nsfw\n" +
                     "You can also change the language here: /language\n\n" +
                     "A few words about privacy - I save the settings for each user and chat, as well as the total number of requests.\n\n" +
-                    "My github page: https://github.com/ASPIRINswag/owobot-java\n\n" +
+                    "My github page: https://github.com/ASPIRINmoe/owobot-java\n\n" +
                     "I hope that I will be useful to you, master!! (☆ω☆)");
             case 1 -> ("Приветик" + userMention + "! Я owobot v" + Main.version + " - бот, который прислылает милых девочек!\n\n" +
                     "Я написана на Java, беру картинки с reddit, мультипоточна и полностью соовместима с групповыми чатами. Не бойтесь отправлять мне по 25-50 запросов за раз, я справлюсь с этим!\n\n" +
@@ -55,7 +55,7 @@ public class TextResponce {
                     "По умолчанию я не буду присылать вам NSFW контент, однако Вы можете настроить это тут: /nsfw\n" +
                     "Также вы можете поменять язык здесь: /language\n\n" +
                     "Пару слов по поводу приватности - Я сохраняю настройки для каждого пользователя и чата, а также общее число запросов.\n\n" +
-                    "Моя страничка на GitHub: https://github.com/ASPIRINswag/owobot-java\n\n" +
+                    "Моя страничка на GitHub: https://github.com/ASPIRINmoe/owobot-java\n\n" +
                     "Я надеюсь, что буду полезной вам! (☆ω☆)");
             default -> null;
         };

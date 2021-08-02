@@ -35,7 +35,7 @@ public class Main {
     static int messagesGroupPerMin;
 
     public static void main(String[] args) {
-        System.out.println("owobot! v" + version + "is starting!");
+        System.out.println("owobot! v" + version + " is starting!");
 
         try (InputStream input = new FileInputStream("owobot-java-config.properties")) {
             System.out.println("Reading config file");
