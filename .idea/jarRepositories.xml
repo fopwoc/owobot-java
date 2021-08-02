@@ -12,14 +12,14 @@
       <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="uhh" />
-      <option name="name" value="uhh" />
-      <option name="url" value="https://repo.spring.io/libs-release/" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="uhh" />
+      <option name="name" value="uhh" />
+      <option name="url" value="https://repo.spring.io/libs-release/" />
     </remote-repository>
   </component>
 </project>
