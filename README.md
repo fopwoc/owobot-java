@@ -9,7 +9,7 @@ Bot link:  [@owopics_bot](https://t.me/owopics_bot)
 ### Features
 * Multithreading
 * Works great in group chats
-* Preverting timeout errors
+* Preventing timeout errors
 * Chat related NSFW settings
 * User related language settings (english and russian)
 * Can answer on `owo` and `uwu`
@@ -26,14 +26,7 @@ Or if for some reason you want to run it by yourself:
 5. Run again and enjoy
 
 ### Reason of choosing some questionable solutions
+
 1. I'm java newbie
-2. it was written with keeping in mind idea about implementation all features just with java, without anything outside like DB or something **BUT except** Tor proxy on host machine, cuz I'm russian and Telegram API is banned here. 
-
-Just add this line to /etc/tor/torrc on your host machine
-```
-HTTPTunnelPort 127.0.0.1:9030
-```
-Or delete everything about proxy from code ¯\\_(ツ)_/¯
-
-### TODO
-- [ ] Rewrite in haskell someday
+2. it was written with keeping in mind idea about implementation all features just with java, without anything outside
+   like DB or something.
