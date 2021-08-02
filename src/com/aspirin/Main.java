@@ -74,7 +74,26 @@ public class Main {
                         "\n" +
                         "Reddit_Username=username\n" +
                         "Reddit_Password=password\n" +
-                        "Reddit_Clientid=id");
+                        "Reddit_Clientid=id\n" +
+                        "Reddit_Clientsecret=secret\n" +
+                        "\n" +
+                        "#Proxy settings. Leave empty if you don't want to use it\n" +
+                        "PROXY_HOST=\n" +
+                        "PROXY_PORT=\n" +
+                        "\n" +
+                        "#Reddit settings\n" +
+                        "#postLimit - limit the number of received posts for each page. 25 is default, 100 is max.\n" +
+                        "postLimit=25\n" +
+                        "#pageLimit - 6 is optimal, more will take more time to to get the job done.\n" +
+                        "pageLimit=6\n" +
+                        "#sort - Reddit sort type. HOT, BEST, CONTROVERSIAL, NEW, RISING, TOP\n" +
+                        "sort=HOT\n" +
+                        "#period - Reddit period of time. HOUR, DAY, WEEK, MONTH, YEAR, ALL\n" +
+                        "period=WEEK\n" +
+                        "#retryMax - number of attempts to get a post with a picture. 3 is ok.\n" +
+                        "retryMax=3\n" +
+                        "#HttpLog - debug function that shows all requests to reddit. true or false\n" +
+                        "HttpLog=false");
                 configFile.close();
 
                 System.out.println("Please, setup config before next run!");
@@ -83,6 +102,9 @@ public class Main {
                 e.printStackTrace();
                 System.exit(1);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
         } finally {
             System.out.println("Config looks ok");
         }
