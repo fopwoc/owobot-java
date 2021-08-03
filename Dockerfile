@@ -10,4 +10,5 @@ RUN mvn package
 
 FROM adoptopenjdk/openjdk11:alpine-jre
 COPY --from=target /target/*jar-with-dependencies.jar /app.jar
+COPY ./owobot-java-config.properties /
 CMD ["java", "-jar", "/app.jar"]
