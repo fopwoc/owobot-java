@@ -28,7 +28,7 @@ If for some reason you want to run it by yourself:
 Or if you want to use Docker:
 
 ```shell
-# docker run -d \
+docker run -d \
    -v "path/to/config:/owobot-java-config.properties" \
    -v "owobot-cache:/root/.java" \
    aspirinmoe/owobot-java
