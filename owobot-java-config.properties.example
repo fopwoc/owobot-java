@@ -1,0 +1,15 @@
+BOT_USERNAME=yourbot_bot
+BOT_TOKEN=telegram:token
+BOT_FEEDBACKID=your_id
+
+Reddit_Username=username
+Reddit_Password=password
+Reddit_Clientid=cliendid
+Reddit_Clientsecret=clientsecret
+
+postLimit=25
+pageLimit=6
+sort=HOT
+period=WEEK
+retryMax=3
+HttpLog=false
