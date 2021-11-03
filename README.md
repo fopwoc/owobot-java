@@ -17,13 +17,22 @@ Bot link:  [@owopics_bot](https://t.me/owopics_bot)
 ### How to use
 1. Go to [@owopics_bot](https://t.me/owopics_bot) and just use the bot!
 
-Or if for some reason you want to run it by yourself:
+If for some reason you want to run it by yourself:
 
 1. Clone code somewhere
 2. Install Java 14 and run `mvn package` or use Docker
 3. After first run it will create empty config file
 4. Fill the config
 5. Run again and enjoy
+
+Or if you want to use Docker:
+
+```shell
+# docker run -d \
+   -v "path/to/config:/owobot-java-config.properties" \
+   -v "owobot-cache:/root/.java" \
+   aspirinmoe/owobot-java
+```
 
 ### Reason of choosing some questionable solutions
 

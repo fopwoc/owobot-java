@@ -1,14 +1,11 @@
-FROM alpine:3.7
-FROM maven:3.6.3-jdk-14 as target
-RUN mkdir -p ./
-COPY pom.xml pom.xml
-WORKDIR ./
-COPY src /src/main/java
-WORKDIR ./
+FROM alpine:edge
+RUN apk add --no-cache openjdk14 maven git
 
-RUN mvn package
+RUN git clone https://github.com/ASPIRINmoe/owobot-java && \
+    cd owobot-java && \
+    mvn package && \ 
+    cp target/*jar-with-dependencies.jar /app.jar && \
+    cd / && rm -rf /owobot-java /root/.m2 && \
+    apk del maven git
 
-FROM adoptopenjdk/openjdk11:alpine-jre
-COPY --from=target /target/*jar-with-dependencies.jar /app.jar
-COPY ./owobot-java-config.properties /
 CMD ["java", "-jar", "/app.jar"]
