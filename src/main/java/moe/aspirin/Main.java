@@ -13,7 +13,7 @@
     its username: @owopics_bot
     author: @realASPIRIN                                                                                */
 
-package com.aspirin;
+package moe.aspirin;
 
 import net.dean.jraw.RedditException;
 import org.apache.http.HttpHost;

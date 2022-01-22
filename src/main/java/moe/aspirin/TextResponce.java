@@ -1,4 +1,4 @@
-package com.aspirin;
+package moe.aspirin;
 
 import net.dean.jraw.models.Submission;
 import org.telegram.telegrambots.meta.api.objects.Message;

@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url = uri('https://jitpack.io')
+    }
+}
+
+dependencies {
+    implementation 'com.github.mattbdean:JRAW:1.1.0'
+    implementation 'org.telegram:telegrambots:4.9'
+    implementation 'org.telegram:telegrambots-meta:4.9'
+    implementation 'org.telegram:telegrambots-abilities:4.9'
+}
+
+group = 'moe.aspirin'
+version = '2.1'
+description = 'owobot-java'
+java.sourceCompatibility = JavaVersion.VERSION_14
+
+jar {
+    manifest {
+        attributes  'Main-Class': 'moe.aspirin.Main'
+    }
+}
