@@ -2,10 +2,13 @@ name: Publish Docker image
 
 on:
   push:
-    branches: [ master ]
-    tags: [ '*' ]
+    branches:
+      - 'master'
+    tags:
+      - 'v*'
   pull_request:
-    branches: [ master ]
+    branches:
+      - 'master'
 
 jobs:
   push_to_registries:
