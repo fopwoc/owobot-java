@@ -4,13 +4,13 @@
       / _ \ \ /\ / / _ \| '_ \ / _ \| __|
      | (_) \ V  V / (_) | |_) | (_) | |_
       \___/ \_/\_/ \___/|_.__/ \___/ \__|
-                                            v.2.1
+                                            v.3.0
 
     An anime pics bot for Telegram, written on java, taking data from reddit.
-    Бот для телеграмма, присылающий аниме девочек, написанный на java, берущий данные из reddit.
+    Бот для Telegram, присылающий аниме девочек, написанный на Java, берущий данные с Reddit.
 
-    botlink:  https://t.me/owopics_bot
-    its username: @owopics_bot
+    link:  https://t.me/owopics_bot
+    username: @owopics_bot
     author: @realASPIRIN                                                                                */
 
 package moe.aspirin;
@@ -18,10 +18,9 @@ package moe.aspirin;
 import net.dean.jraw.RedditException;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
-import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
-import org.telegram.telegrambots.meta.ApiContext;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.*;
 import java.util.Properties;
@@ -29,7 +28,7 @@ import java.util.Properties;
 public class Main {
 
     final static long StartTime = System.currentTimeMillis();
-    final static String version = "2.1";
+    final static String version = "3.0";
     static final Properties prop = new Properties();
 
     static int messagesGroupPerMin;
@@ -122,10 +121,7 @@ public class Main {
             System.out.println("Reddit is good");
         }
 
-        ApiContextInitializer.init();
-        TelegramBotsApi botsApi = new TelegramBotsApi();
-        DefaultBotOptions botOptions = ApiContext.getInstance(DefaultBotOptions.class);
-
+        DefaultBotOptions botOptions = new DefaultBotOptions();
         if (Main.prop.getProperty("PROXY_HOST") != null) {
             System.out.println("Forwarding telegram through proxy");
 
@@ -137,10 +133,10 @@ public class Main {
         }
 
         System.out.println("Starting bot");
-        Bot bot = new Bot(botOptions);
 
         try {
-            botsApi.registerBot(bot);
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            telegramBotsApi.registerBot(new Bot(botOptions));
         } catch (Exception e) {
             System.out.println("Error while bot initialization");
             e.printStackTrace();

@@ -24,21 +24,20 @@ import java.util.concurrent.CompletableFuture;
 public class Bot extends TelegramLongPollingBot {
 
     final private ArrayList<String> RandomAnimeGirls = new ArrayList<>() {{
+        add("animeart");
         add("awwnime");
         add("wholesomeyuri");
-        add("Joshi_Kosei");
-        add("AnimeBlush");
+        add("joshi_kosei");
+        add("animeblush");
         add("tsunderes");
-        add("Usagimimi");
         add("kitsunemimi");
         add("animeponytails");
         add("tyingherhairup");
-        add("OfficialSenpaiHeat");
-        add("ChurchofBelly");
-        add("Moescape");
-        add("MoeStash");
-        add("TwoDeeArt");
-        add("2DArtchive");
+        add("officialsenpaiheat");
+        add("churchofbelly");
+        add("moescape");
+        add("moestash");
+        add("twodeeart");
         add("headpats");
         add("cutelittlefangs");
         add("kemonomimi");
@@ -46,23 +45,23 @@ public class Bot extends TelegramLongPollingBot {
         add("pouts");
         add("gao");
         add("animelegs");
-        add("ZettaiRyouiki");
-        add("thighdeology");
-        add("Animewallpaper");
+        add("zettairyouiki");
+        add("animewallpaper");
         add("pantsu");
-        add("Patchuu");
+        add("patchuu");
         add("animehotbeverages");
         add("silverhair");
         add("longhairedwaifus");
         add("shorthairedwaifus");
-        add("Smugs");
+        add("smugs");
+        add("manga");
     }};
 
-    final private SendChatAction sendChatAction = new SendChatAction().setAction(ActionType.TYPING);
     final private TextResponce textResponce = new TextResponce();
     final private Preferences preferences = new Preferences();
     final private Random random = new Random();
-    final private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd ");
+    final private Utils utils = new Utils();
+
 
     Bot(DefaultBotOptions botOptions) {
         super(botOptions);
@@ -81,12 +80,16 @@ public class Bot extends TelegramLongPollingBot {
 
             while (!future.isDone()) {
                 try {
-                    execute(sendChatAction.setChatId(update.getMessage().getChatId()));
+                    SendChatAction sendChatAction = new SendChatAction();
+                    sendChatAction.setChatId(update.getMessage().getChatId().toString());
+                    sendChatAction.setAction(ActionType.TYPING);
+
+                    execute(sendChatAction);
 
                     //Making latency between requests for "typing" in label. it's actually a random number lol.
-                    Thread.sleep(random.nextInt(Thread.activeCount() * 50) + 1000);
+                    Thread.sleep(random.nextInt(Thread.activeCount() * 1000) + 1000);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         }).start();
@@ -106,12 +109,11 @@ public class Bot extends TelegramLongPollingBot {
         return Main.prop.getProperty("BOT_FEEDBACKID");
     }
 
-    public String timeAndDate() {
-        return ("[" + simpleDateFormat.format(new Date()) + DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalTime.now()) + "] ");
-    }
 
     public boolean isAdmin(Update update) {
-        GetChatAdministrators getChatAdministrators = new GetChatAdministrators().setChatId(update.getMessage().getChatId());
+        GetChatAdministrators getChatAdministrators = new GetChatAdministrators();
+        getChatAdministrators.setChatId(update.getMessage().getChatId().toString());
+
         MessageSender sender;
         sender = new DefaultSender(this);
         SilentSender silent = new SilentSender(sender);
@@ -121,14 +123,19 @@ public class Bot extends TelegramLongPollingBot {
 
     private void sendTextFeedback(@NotNull String text) {
         try {
-            execute(new SendMessage().setChatId(creatorId()).setText(text));
+            SendMessage message = new SendMessage();
+            message.setChatId(creatorId());
+            message.setText(text);
+
+            execute(message);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void sendMessage(Message message, String text) {
-        if (message == null || text == null) {
+    private void sendMessage(Message messageData, String text) {
+        if (messageData == null || text == null) {
             return;
         }
         try {
@@ -140,15 +147,24 @@ public class Bot extends TelegramLongPollingBot {
             }
 
             if (text.length() == 0) {
-                if (message.isGroupMessage() || message.isSuperGroupMessage()) Main.messagesGroupPerMin++;
-                execute(new SendMessage().setChatId(message.getChatId().toString()).setText(textResponce.strangeErrorResponse(message)));
+                if (messageData.isGroupMessage() || messageData.isSuperGroupMessage()) Main.messagesGroupPerMin++;
+                SendMessage message = new SendMessage();
+                message.setChatId(message.getChatId());
+                message.setText(textResponce.strangeErrorResponse(messageData));
+
+                execute(message);
             }
 
-            if (message.isGroupMessage() || message.isSuperGroupMessage()) Main.messagesGroupPerMin++;
-            execute(new SendMessage().setChatId(message.getChatId().toString()).setText(text));
+            if (messageData.isGroupMessage() || messageData.isSuperGroupMessage()) Main.messagesGroupPerMin++;
+            SendMessage message = new SendMessage();
+            message.setChatId(messageData.getChatId().toString());
+            message.setText(text);
+
+            execute(message);
+
             preferences.reqTimesAdd(1);
         } catch (Exception e) {
-            System.out.println(timeAndDate() + "Thread " + Thread.currentThread().getId() + " has got timeout. message: " + message.getText() + " reason: " + e.getCause().toString());
+            System.out.println(utils.timeAndDate() + "Thread " + Thread.currentThread().getId() + " has got timeout. message: " + messageData.getText() + " reason: " + e.getCause().toString());
             e.printStackTrace();
         }
     }
@@ -156,10 +172,10 @@ public class Bot extends TelegramLongPollingBot {
     String getMessageText(Update update, String message_text) {
         if (update.getMessage().getChat().isGroupChat() || update.getMessage().getChat().isSuperGroupChat()) {
             if (message_text.contains("@" + Main.prop.getProperty("BOT_USERNAME"))) {
-                System.out.println(timeAndDate() + "Message \"" + message_text.replace("@" + Main.prop.getProperty("BOT_USERNAME"), "") + "\" has been received from user " + update.getMessage().getFrom().getUserName() + " in group chat");
+                System.out.println(utils.timeAndDate() + "Message \"" + message_text.replace("@" + Main.prop.getProperty("BOT_USERNAME"), "") + "\" has been received in group chat");
             }
         } else {
-            System.out.println(timeAndDate() + "Message \"" + message_text + "\" has been received");
+            System.out.println(utils.timeAndDate() + "Message \"" + message_text + "\" has been received");
         }
 
         if (message_text.contains("@" + Main.prop.getProperty("BOT_USERNAME"))) {
@@ -210,11 +226,9 @@ public class Bot extends TelegramLongPollingBot {
 
                         String subbedMessage = message_text.substring(6);
                         if (subbedMessage.equals("on")) {
-                            System.out.println(timeAndDate() + "NSFW changed to ON by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsNSFWSet(update.getMessage().getChatId(), 1);
                             return textResponce.nsfwOnResponse(update.getMessage());
                         } else if (subbedMessage.equals("off")) {
-                            System.out.println(timeAndDate() + "NSFW changed to OFF by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsNSFWSet(update.getMessage().getChatId(), 0);
                             return textResponce.nsfwOffResponse(update.getMessage());
                         } else {
@@ -223,11 +237,9 @@ public class Bot extends TelegramLongPollingBot {
                     } else if (message_text.contains("/language_")) {
                         String subbedMessage = message_text.substring(10);
                         if (subbedMessage.equals("rus")) {
-                            System.out.println(timeAndDate() + "language changed to RUS by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsLanguageSet(update.getMessage().getFrom().getUserName(), 1);
                             return textResponce.languageOnResponse(update.getMessage());
                         } else if (subbedMessage.equals("eng")) {
-                            System.out.println(timeAndDate() + "language changed to ENG by user " + update.getMessage().getFrom().getUserName());
                             preferences.settingsLanguageSet(update.getMessage().getFrom().getUserName(), 0);
                             return textResponce.languageOffResponse(update.getMessage());
                         } else {
@@ -240,7 +252,7 @@ public class Bot extends TelegramLongPollingBot {
                     }
             }
         } catch (Exception e) {
-            System.out.println(timeAndDate() + "Thread " + Thread.currentThread().getId() + " has ended (execution error). message: " + message_text);
+            System.out.println(utils.timeAndDate() + "Thread " + Thread.currentThread().getId() + " has ended (execution error). message: " + message_text);
             e.printStackTrace();
             return textResponce.errorResponse(update.getMessage());
         }
