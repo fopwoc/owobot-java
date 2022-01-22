@@ -27,9 +27,9 @@ class RedditAPI {
     final private TextResponce textResponce = new TextResponce();
     final private Preferences preferences = new Preferences();
     final private Random random = new Random();
+    final private Utils utils = new Utils();
 
     RedditAPI() {
-
         UserAgent userAgent = new UserAgent("bot", "com.aspirinswag.bot", "v1.1.1", "ASPIRINswag");
         Credentials oauthCreds = Credentials.script(Main.prop.getProperty("Reddit_Username"), Main.prop.getProperty("Reddit_Password"), Main.prop.getProperty("Reddit_Clientid"), Main.prop.getProperty("Reddit_Clientsecret"));
         this.RedditAPI = OAuthHelper.automatic(new OkHttpNetworkAdapter(userAgent), oauthCreds);
@@ -61,8 +61,10 @@ class RedditAPI {
     }
 
     public String getPicFromSub(RedditAPI api, String subreddit, Update update) {
-        if (api.RedditAPI.searchSubredditsByName(subreddit).isEmpty())
+        if (api.RedditAPI.searchSubredditsByName(subreddit).isEmpty()) {
+            System.out.println(utils.timeAndDate() + "Reddit unknown error: subreddit -> " + subreddit);
             return textResponce.redditWrongResponse(update.getMessage(), subreddit);
+        }
 
         SubredditReference sub = api.RedditAPI.subreddit(subreddit);
 
