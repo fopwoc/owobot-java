@@ -1,11 +1,8 @@
-FROM alpine:edge
-RUN apk add --no-cache openjdk14 maven git
+FROM gradle:latest AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle shadowJar --no-daemon
 
-RUN git clone https://github.com/ASPIRINmoe/owobot-java && \
-    cd owobot-java && \
-    mvn package && \ 
-    cp target/*jar-with-dependencies.jar /app.jar && \
-    cd / && rm -rf /owobot-java /root/.m2 && \
-    apk del maven git
-
-CMD ["java", "-jar", "/app.jar"]
+FROM openjdk:latest
+COPY --from=build /home/gradle/src/build/libs/owobot-java-*-all.jar /owobot-java.jar
+ENTRYPOINT ["java","-jar","/owobot-java.jar"]
