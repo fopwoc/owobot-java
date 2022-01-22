@@ -1,4 +1,4 @@
-package com.aspirin;
+package moe.aspirin;
 
 import net.dean.jraw.RedditClient;
 import net.dean.jraw.http.OkHttpNetworkAdapter;
