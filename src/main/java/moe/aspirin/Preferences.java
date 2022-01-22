@@ -1,4 +1,4 @@
-package com.aspirin;
+package moe.aspirin;
 
 //I just used Java specific feature for permanent save preferences without DB or anything else.
 public class Preferences {

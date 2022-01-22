@@ -1,4 +1,4 @@
-package com.aspirin;
+package moe.aspirin;
 
 import org.jetbrains.annotations.NotNull;
 import org.telegram.abilitybots.api.sender.DefaultSender;
