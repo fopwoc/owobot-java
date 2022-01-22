@@ -297,10 +297,12 @@ public class TextResponce {
             if (language == 0) userMention = ("Yo @" + message.getFrom().getUserName() + "! ");
             else userMention = ("Ку @" + message.getFrom().getUserName() + "! ");
 
+            //cringe
         return switch (language) {
             case 0 -> (userMention + "Write to the bot /get_*subreddit tittle* and it will send you a random picture from there.\n" +
                     "Here is my little compilation:\n" +
-                    "/get_awwnime - All kinds of moe art\n" +
+                    "/get_AnimeART - The biggest place with anime pics.\n" +
+                    "/get_awwnime - All kinds of moe art.\n" +
                     "/get_wholesomeyuri - Yuri. Everyone loves yuri.\n" +
                     "/get_Joshi_Kosei - Cute high school students.\n" +
                     "/get_AnimeBlush - Shy girls.\n" +
@@ -314,13 +316,12 @@ public class TextResponce {
                     "/get_Moescape - Cute arts with cute girls.\n" +
                     "/get_MoeStash - More cute girls!\n" +
                     "/get_TwoDeeArt - Just 2D Art.\n" +
-                    "/get_2DArtchive - Archive of 2D art.\n" +
-                    "/get_headpats - Girls stroking the head..\n" +
+                    "/get_headpats - Girls getting a pat.\n" +
                     "/get_cutelittlefangs - Teeth and fangs and cute girls.\n" +
                     "/get_kemonomimi - Cute girls and animal ears!\n" +
                     "/get_twintails - Anime girls with twintails.\n" +
                     "/get_pouts - Cute girls with pouting cheeks.\n" +
-                    "/get_gao - Girls make scary sounds.!\n" +
+                    "/get_gao - Girls make scary sounds!\n" +
                     "/get_animelegs - Legs!\n" +
                     "/get_ZettaiRyouiki - Thighs owo!\n" +
                     "/get_thighdeology - More thighs, but more open!\n" +
@@ -333,9 +334,12 @@ public class TextResponce {
                     "/get_longhairedwaifus - Cuties with long hair.\n" +
                     "/get_shorthairedwaifus - Girls with short hairstyles.\n" +
                     "/get_Smugs - Smug girls.\n" +
+                    "/get_manga - Manga pages.\n" +
                     "/get_Lain - W̺̹̆̒̊ͪ͌̒ͦe͂̈́ ̜͕̮͉̥̔ͪ̃͗ͣa͛ͤ̌ŕ̭̈́̎̈ͯ͋e̠̤̫̪͙ͩͨ ͉̘̱͔̥͊͂́̍ͦ́ẃ̰̼̰͌̇iͧ̀̉ͫr͖̗̙̫̓e̥̣̲̳ͨ̄͌̑d̲͉̭̩̟̙̝͆ͥ");
+            //cringe x2
             case 1 -> (userMention + "Напиши боту /get_*название сабреддита*, и он отправит вам случайную картинку оттуда.\n" +
                     "Вот вам моя подборочка:\n" +
+                    "/get_AnimeART - Самый большой раздел с картинками.\n" +
                     "/get_awwnime - Что-то милое.\n" +
                     "/get_wholesomeyuri - Юри. Все любят юри.\n" +
                     "/get_Joshi_Kosei - Милые старшеклассницы.\n" +
@@ -350,7 +354,6 @@ public class TextResponce {
                     "/get_Moescape - Милые арты с милыми девочками.\n" +
                     "/get_MoeStash - Еще милые девочки!\n" +
                     "/get_TwoDeeArt - Просто 2д артики.\n" +
-                    "/get_2DArtchive - Архив 2д артов.\n" +
                     "/get_headpats - Девочек гладят по голове.\n" +
                     "/get_cutelittlefangs - Зубки и клыки у милых девочек.\n" +
                     "/get_kemonomimi - Опять ушки!\n" +
@@ -369,6 +372,7 @@ public class TextResponce {
                     "/get_longhairedwaifus - Милашки с длинными волосами.\n" +
                     "/get_shorthairedwaifus - Девочки с короткими прическами.\n" +
                     "/get_Smugs - Самодовольные девочки.\n" +
+                    "/get_manga - Странички из манги.\n" +
                     "/get_Lain - W̺̹̆̒̊ͪ͌̒ͦe͂̈́ ̜͕̮͉̥̔ͪ̃͗ͣa͛ͤ̌ŕ̭̈́̎̈ͯ͋e̠̤̫̪͙ͩͨ ͉̘̱͔̥͊͂́̍ͦ́ẃ̰̼̰͌̇iͧ̀̉ͫr͖̗̙̫̓e̥̣̲̳ͨ̄͌̑d̲͉̭̩̟̙̝͆ͥ");
             default -> null;
         };
@@ -385,7 +389,7 @@ public class TextResponce {
             else userMention = ("@" + message.getFrom().getUserName() + " забыл");
 
         return switch (language) {
-            case 0 -> ("It looks like " + userMention + " to clarify the subreddit! You should carefully read /get");
+            case 0 -> ("It looks like " + userMention + " to specify the subreddit! You should carefully read /get");
             case 1 -> ("Похоже, что " + userMention + " уточнить сабреддит! Вам стоит внимательнее изучить /get");
             default -> null;
         };
