@@ -20,7 +20,7 @@ dependencies {
 
 group = 'moe.aspirin'
 version = '2.1'
-description = 'owobot-java'
+description = 'An anime pics bot for Telegram, written on java, taking data from reddit.'
 java.sourceCompatibility = JavaVersion.VERSION_14
 
 jar {
