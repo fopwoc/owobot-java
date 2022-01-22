@@ -44,6 +44,9 @@ jobs:
             aspirinmoe/owobot-java
             ghcr.io/${{ github.repository }}
           flavor: latest=${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{major}}
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
