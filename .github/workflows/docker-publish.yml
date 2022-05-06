@@ -8,7 +8,7 @@ on:
       - '*'
 
 env:
-  REPO: aspirinmoe/owobot-java
+  DOCKER_HUB: aspirinmoe/owobot-java
 
 jobs:
   push_to_registries:
@@ -39,7 +39,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            $REPO
+            ${{ env.DOCKER_HUB }}
             ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=branch
@@ -60,5 +60,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: $REPO
+          repository: ${{ env.DOCKER_HUB }}
           short-description: ${{ github.event.repository.description }}
