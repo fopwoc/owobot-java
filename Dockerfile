@@ -1,4 +1,7 @@
 FROM gradle:latest AS build
+
+LABEL MAINTAINER "Ilya Dobryakov <aspirin@govno.tech>"
+
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle shadowJar --no-daemon
