@@ -19,13 +19,21 @@ Bot link:  [@owopics_bot](https://t.me/owopics_bot)
 If for some reason you want to run it by yourself:
 
 1. Clone code somewhere
-2. Install Java 14 and run `./gradlew shadowJar` or use Docker
+2. Install Java 14 and run `./gradlew shadowJar`
 3. After first run it will create empty config file
 4. Fill the config
 5. Run again and enjoy
 
-Or if you want to use Docker:
+Or if you want to use docker-compose:
+```yaml
+  owobot-java:
+    image: aspirinmoe/owobot-java:latest
+    volumes:
+      - path/to/config:/owobot-java-config.properties
+      - owobot-cache:/root/.java
+```
 
+or docker cli
 ```shell
 docker run -d \
    -v "path/to/config:/owobot-java-config.properties" \
@@ -43,4 +51,3 @@ docker run -d \
 ### TODO
 1. Never ever in my life to write code like I did it here
 2. Completely rework the project from scratch
-
