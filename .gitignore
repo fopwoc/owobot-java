@@ -2,7 +2,6 @@
 .idea/
 
 .gradle/
-gradle/
 build/
 !**/src/**/build
 !**/test/**/build
