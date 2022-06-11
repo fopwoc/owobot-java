@@ -4,14 +4,14 @@
       / _ \ \ /\ / / _ \| '_ \ / _ \| __|
      | (_) \ V  V / (_) | |_) | (_) | |_
       \___/ \_/\_/ \___/|_.__/ \___/ \__|
-                                            v.3.0
+                                            v.3.0.1
 
     An anime pics bot for Telegram, written on java, taking data from reddit.
     Бот для Telegram, присылающий аниме девочек, написанный на Java, берущий данные с Reddit.
 
     link:  https://t.me/owopics_bot
     username: @owopics_bot
-    author: @realASPIRIN                                                                                */
+    author: aspirin@govno.tech                                                                              */
 
 package moe.aspirin;
 
@@ -28,7 +28,7 @@ import java.util.Properties;
 public class Main {
 
     final static long StartTime = System.currentTimeMillis();
-    final static String version = "3.0";
+    final static String version = "3.0.1";
     static final Properties prop = new Properties();
 
     static int messagesGroupPerMin;
