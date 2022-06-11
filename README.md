@@ -1,4 +1,5 @@
 # owobot-java
+[![Build](https://github.com/ASPIRINmoe/owobot-java/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ASPIRINmoe/owobot-java/actions/workflows/docker-publish.yml)
 
 An anime pics bot for Telegram, written on java, taking data from reddit.   
 Бот для Telegram, присылающий аниме девочек, написанный на Java, берущий данные с Reddit.
