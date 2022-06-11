@@ -14,7 +14,7 @@ repositories {
 dependencies {
     implementation 'com.github.mattbdean:JRAW:1.1.0'
     implementation 'org.telegram:telegrambots:6.0.1'
-    implementation 'org.telegram:telegrambots-abilities:4.9'
+    implementation 'org.telegram:telegrambots-abilities:6.0.1'
 }
 
 group = 'moe.aspirin'
