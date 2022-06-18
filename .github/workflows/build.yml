@@ -18,7 +18,7 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: shadowJar
+          arguments: shadowJar --no-daemon
       - run: |
           mkdir -p ~/new/artifact
           mv build/libs/*-all.jar ~/new/artifact/${{ github.event.repository.name }}-${{ github.sha }}.jar
