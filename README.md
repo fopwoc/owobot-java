@@ -28,7 +28,7 @@ If for some reason you want to run it by yourself:
 Or if you want to use docker-compose:
 ```yaml
   owobot-java:
-    image: aspirinmoe/owobot-java:latest
+    image: acetylsalicylicacid/owobot-java:latest
     volumes:
       - path/to/config:/owobot-java-config.properties
       - owobot-cache:/root/.java
@@ -39,7 +39,7 @@ or docker cli
 docker run -d \
    -v "path/to/config:/owobot-java-config.properties" \
    -v "owobot-cache:/root/.java" \
-   aspirinmoe/owobot-java
+   acetylsalicylicacid/owobot-java
 ```
 
 ### Reason of choosing some questionable solutions
