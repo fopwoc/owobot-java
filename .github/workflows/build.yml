@@ -20,7 +20,7 @@ jobs:
         with:
           arguments: build
       - run: |
-          ls -la
+          ls -la build/libs
           mkdir -p ~/new/artifact
           mv build/libs/*-all.jar ~/new/artifact/${{ github.event.repository.name }}-${{ github.sha }}.jar
       - name: Upload artifacts
