@@ -1,3 +1,8 @@
+tasks.wrapper {
+    gradleVersion = "7.5.1"
+    distributionType = Wrapper.DistributionType.ALL
+}
+
 group = "moe.aspirin"
 version = "3.0.1"
 description = "An anime pics bot for Telegram, written on java, taking data from reddit."
