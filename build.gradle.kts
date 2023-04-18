@@ -1,19 +1,14 @@
-tasks.wrapper {
-    gradleVersion = "7.5.1"
-    distributionType = Wrapper.DistributionType.ALL
-}
-
-group = "moe.aspirin"
-version = "3.0.1"
+group = "io.github.fopwoc"
+version = "3.0.3"
 description = "An anime pics bot for Telegram, written on java, taking data from reddit."
-java.sourceCompatibility = JavaVersion.VERSION_14
+java.sourceCompatibility = JavaVersion.VERSION_17
 application {
-    mainClass.set("moe.aspirin.Main")
+    mainClass.set("io.github.fopwoc.Main")
 }
 
 plugins {
     application
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -31,6 +26,6 @@ dependencies {
 
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "moe.aspirin.Main"
+        attributes["Main-Class"] = "io.github.fopwoc.Main"
     }
 }

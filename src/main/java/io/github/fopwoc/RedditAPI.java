@@ -1,4 +1,4 @@
-package moe.aspirin;
+package io.github.fopwoc;
 
 import net.dean.jraw.RedditClient;
 import net.dean.jraw.http.OkHttpNetworkAdapter;
@@ -30,7 +30,7 @@ class RedditAPI {
     final private Utils utils = new Utils();
 
     RedditAPI() {
-        UserAgent userAgent = new UserAgent("bot", "com.aspirinswag.bot", "v1.1.1", "ASPIRINswag");
+        UserAgent userAgent = new UserAgent("bot", "io.github.fopwoc.bot", "v3.0.3", "fopwoc");
         Credentials oauthCreds = Credentials.script(Main.prop.getProperty("Reddit_Username"), Main.prop.getProperty("Reddit_Password"), Main.prop.getProperty("Reddit_Clientid"), Main.prop.getProperty("Reddit_Clientsecret"));
         this.RedditAPI = OAuthHelper.automatic(new OkHttpNetworkAdapter(userAgent), oauthCreds);
         RedditAPI.setLogHttp(Boolean.parseBoolean(Main.prop.getProperty("HttpLog")));

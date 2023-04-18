@@ -1,10 +1,9 @@
 # owobot-java
-[![Build](https://github.com/ASPIRINmoe/owobot-java/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ASPIRINmoe/owobot-java/actions/workflows/docker-publish.yml)
+[![Build](https://github.com/fopwoc/owobot-java/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fopwoc/owobot-java/actions/workflows/docker-publish.yml)
 
 An anime pics bot for Telegram, written on java, taking data from reddit.   
-Бот для Telegram, присылающий аниме девочек, написанный на Java, берущий данные с Reddit.
 
-Bot link:  [@owopics_bot](https://t.me/owopics_bot)
+Bot link: [@owopics_bot](https://t.me/owopics_bot)
 
 ### Features
 * Multithreading
@@ -20,7 +19,7 @@ Bot link:  [@owopics_bot](https://t.me/owopics_bot)
 If for some reason you want to run it by yourself:
 
 1. Clone code somewhere
-2. Install Java 14 and run `./gradlew shadowJar`
+2. Install Java 17 and run `./gradlew shadowJar`
 3. After first run it will create empty config file
 4. Fill the config
 5. Run again and enjoy
@@ -28,7 +27,7 @@ If for some reason you want to run it by yourself:
 Or if you want to use docker-compose:
 ```yaml
   owobot-java:
-    image: acetylsalicylicacid/owobot-java:latest
+    image: ghcr.io/fopwoc/owobot-java:latest
     volumes:
       - path/to/config:/owobot-java-config.properties
       - owobot-cache:/root/.java
@@ -39,7 +38,7 @@ or docker cli
 docker run -d \
    -v "path/to/config:/owobot-java-config.properties" \
    -v "owobot-cache:/root/.java" \
-   acetylsalicylicacid/owobot-java
+   ghcr.io/fopwoc/owobot-java:latest
 ```
 
 ### Reason of choosing some questionable solutions

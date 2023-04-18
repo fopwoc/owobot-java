@@ -1,4 +1,4 @@
-package moe.aspirin;
+package io.github.fopwoc;
 
 import org.jetbrains.annotations.NotNull;
 import org.telegram.abilitybots.api.sender.DefaultSender;
@@ -13,11 +13,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 

@@ -4,16 +4,15 @@
       / _ \ \ /\ / / _ \| '_ \ / _ \| __|
      | (_) \ V  V / (_) | |_) | (_) | |_
       \___/ \_/\_/ \___/|_.__/ \___/ \__|
-                                            v.3.0.1
+                                            v.3.0.3
 
     An anime pics bot for Telegram, written on java, taking data from reddit.
-    Бот для Telegram, присылающий аниме девочек, написанный на Java, берущий данные с Reddit.
 
     link:  https://t.me/owopics_bot
     username: @owopics_bot
-    author: aspirin@govno.tech                                                                              */
+    author: ilya.dobryakov@icloud.com                                                                            */
 
-package moe.aspirin;
+package io.github.fopwoc;
 
 import net.dean.jraw.RedditException;
 import org.apache.http.HttpHost;
@@ -28,7 +27,7 @@ import java.util.Properties;
 public class Main {
 
     final static long StartTime = System.currentTimeMillis();
-    final static String version = "3.0.1";
+    final static String version = "3.0.3";
     static final Properties prop = new Properties();
 
     static int messagesGroupPerMin;
@@ -67,7 +66,7 @@ public class Main {
         } catch (IOException ex) {
             try (OutputStream output = new FileOutputStream("owobot-java-config.properties")) {
                 System.out.println("Creating config file");
-                prop.store(output, "owobot-java, an anime bot for telegram. Github: https://github.com/ASPIRINswag/owobot-java");
+                prop.store(output, "owobot-java, an anime bot for telegram. Github: https://github.com/fopwoc/owobot-java");
 
                 PrintWriter configFile = new PrintWriter(new BufferedWriter(new FileWriter("owobot-java-config.properties", true)));
                 configFile.println("BOT_USERNAME=username_bot\n" +

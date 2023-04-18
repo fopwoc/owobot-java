@@ -1,4 +1,4 @@
-package moe.aspirin;
+package io.github.fopwoc;
 
 //I just used Java specific feature for permanent save preferences without DB or anything else.
 public class Preferences {

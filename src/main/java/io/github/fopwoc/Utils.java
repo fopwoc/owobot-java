@@ -1,4 +1,4 @@
-package moe.aspirin;
+package io.github.fopwoc;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
